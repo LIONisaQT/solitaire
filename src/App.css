@@ -1,0 +1,36 @@
+.playArea {
+  height: 100vh;
+}
+
+.topArea {
+  height: 20%;
+  background: red;
+  display: flex;
+  flex-direction: row;
+}
+
+.foundations {
+  background: yellow;
+  width: 60%;
+}
+
+.stockAndWaste {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+}
+
+.waste {
+  background: red;
+  width: 100%;
+}
+
+.stock {
+  background: green;
+  width: 100%;
+}
+
+.tableau {
+  height: 100%;
+  background-color: blue;
+}
