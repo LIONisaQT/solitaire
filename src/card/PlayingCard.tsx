@@ -4,21 +4,23 @@ import "./PlayingCard.css";
 interface CardProps {
   rank: React.ReactNode;
   suit: React.ReactNode;
+  isFlipped: boolean;
 }
 
-const PlayingCard: React.FC<CardProps> = ({ rank, suit }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+const PlayingCard: React.FC<CardProps> = ({ rank, suit, isFlipped }) => {
+  const [flipped, setFlipped] = useState(isFlipped);
 
   const handleFlip = () => {
-    setIsFlipped(!isFlipped);
+    setFlipped(!flipped);
+    console.log(rank, suit);
   };
 
   return (
     <div
-      className={`playing-card ${isFlipped ? "flipped" : ""}`}
+      className={`playing-card ${flipped ? "flipped" : ""}`}
       onClick={handleFlip}
     >
-      {!isFlipped && (
+      {!flipped && (
         <div className="card-inner">
           <div className="card-rank">{rank}</div>
           <div className="card-suit">{suit}</div>

@@ -1,18 +1,38 @@
 import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { Card, Deck } from "./card/card";
-import PlayingCard from "./card/PlayingCard";
+import TableauPile from "./tableau/TableauPile";
+
+const NUM_PILES = 7;
 
 function App() {
   const [deck, setDeck] = useState(new Deck());
-  const [currentCard, setCurrentCard] = useState<Card>();
+  const [tableau, setTableau] = useState<Card[][]>();
 
-  const reset = useCallback(() => {
+  const shuffleDeck = useCallback(() => {
     deck.shuffle();
     setDeck(deck);
     console.log("Deck shuffled:", deck.getCards());
-    setCurrentCard(deck.drawCard());
   }, [deck]);
+
+  const createTableau = useCallback(() => {
+    const tableauPiles: Card[][] = [];
+    for (let i = 1; i < NUM_PILES + 1; i++) {
+      const pile: Card[] = [];
+      for (let j = 0; j < i; j++) {
+        const card = deck.drawCard();
+        if (card) pile.push(card);
+        else console.error(`No more cards in deck!`);
+      }
+      tableauPiles.push(pile);
+    }
+    setTableau(tableauPiles);
+  }, [deck]);
+
+  const reset = useCallback(() => {
+    shuffleDeck();
+    createTableau();
+  }, [shuffleDeck, createTableau]);
 
   useEffect(() => {
     reset();
@@ -28,7 +48,9 @@ function App() {
         </div>
       </div>
       <div className="tableau">
-        <PlayingCard rank={currentCard?.rank} suit={currentCard?.suit} />
+        {tableau?.map((pile) => (
+          <TableauPile cards={pile} />
+        ))}
       </div>
     </div>
   );
