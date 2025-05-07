@@ -1,0 +1,38 @@
+.playing-card {
+	width: 100px;
+	height: 140px;
+	border: 1px solid #000;
+	border-radius: 8px;
+	background-color: white;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	font-family: 'Arial', sans-serif;
+	position: relative;
+}
+
+.playing-card .corner {
+	font-size: 14px;
+	font-weight: bold;
+	position: absolute;
+}
+
+.playing-card .corner.top-left {
+	top: 8px;
+	left: 8px;
+	text-align: left;
+}
+
+.playing-card .corner.bottom-right {
+	bottom: 8px;
+	right: 8px;
+	text-align: right;
+	transform: rotate(180deg);
+}
+
+.playing-card .suit {
+	font-size: 24px;
+	margin: auto;
+}
