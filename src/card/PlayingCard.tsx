@@ -15,12 +15,12 @@ const PlayingCard: React.FC<CardProps> = ({ rank, suit }) => {
 
   return (
     <div
-      className={`playingCard ${isFlipped ? "flipped" : ""}`}
+      className={`playing-card ${isFlipped ? "flipped" : ""}`}
       onClick={handleFlip}
     >
-      <div className="cardInner">
-        <div className="cardRank">{rank}</div>
-        <div className="cardSuit">{suit}</div>
+      <div className="card-inner">
+        <div className="card-rank">{rank}</div>
+        <div className="card-suit">{suit}</div>
       </div>
     </div>
   );

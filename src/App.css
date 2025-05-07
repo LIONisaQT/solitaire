@@ -1,8 +1,8 @@
-.playArea {
+.play-area {
   height: 100vh;
 }
 
-.topArea {
+.top-area {
   height: 20%;
   background: red;
   display: flex;
@@ -14,7 +14,7 @@
   width: 60%;
 }
 
-.stockAndWaste {
+.stock-and-waste {
   display: flex;
   flex-direction: row;
   width: 40%;

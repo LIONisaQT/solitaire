@@ -19,10 +19,10 @@ function App() {
   }, [reset]);
 
   return (
-    <div className="playArea">
-      <div className="topArea">
+    <div className="play-area">
+      <div className="top-area">
         <div className="foundations">foundation</div>
-        <div className="stockAndWaste">
+        <div className="stock-and-waste">
           <div className="waste">waste</div>
           <div className="stock">stock</div>
         </div>

@@ -1,4 +1,4 @@
-.playingCard {
+.playing-card {
 	width: 100px;
 	height: 140px;
 	border: 1px solid #000;
@@ -13,26 +13,26 @@
 	position: relative;
 }
 
-.playingCard .corner {
+.playing-card .corner {
 	font-size: 14px;
 	font-weight: bold;
 	position: absolute;
 }
 
-.playingCard .corner.topLeft {
+.playing-card .corner.top-left {
 	top: 8px;
 	left: 8px;
 	text-align: left;
 }
 
-.playingCard .corner.bottomRight {
+.playing-card .corner.bottom-right {
 	bottom: 8px;
 	right: 8px;
 	text-align: right;
 	transform: rotate(180deg);
 }
 
-.playingCard .suit {
+.playing-card .suit {
 	font-size: 24px;
 	margin: auto;
 }
