@@ -1,4 +1,4 @@
-.playing-card {
+.playingCard {
 	width: 100px;
 	height: 140px;
 	border: 1px solid #000;
@@ -9,30 +9,30 @@
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: center;
-	font-family: 'Arial', sans-serif;
+	font-family: sans-serif;
 	position: relative;
 }
 
-.playing-card .corner {
+.playingCard .corner {
 	font-size: 14px;
 	font-weight: bold;
 	position: absolute;
 }
 
-.playing-card .corner.top-left {
+.playingCard .corner.topLeft {
 	top: 8px;
 	left: 8px;
 	text-align: left;
 }
 
-.playing-card .corner.bottom-right {
+.playingCard .corner.bottomRight {
 	bottom: 8px;
 	right: 8px;
 	text-align: right;
 	transform: rotate(180deg);
 }
 
-.playing-card .suit {
+.playingCard .suit {
 	font-size: 24px;
 	margin: auto;
 }

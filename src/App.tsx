@@ -1,16 +1,22 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
-import { Deck } from "./card/card";
+import { Card, Deck } from "./card/card";
+import PlayingCard from "./card/PlayingCard";
 
 function App() {
   const [deck, setDeck] = useState(new Deck());
+  const [currentCard, setCurrentCard] = useState<Card>();
 
-  // Shuffle deck on mount
-  useEffect(() => {
+  const reset = useCallback(() => {
     deck.shuffle();
     setDeck(deck);
     console.log("Deck shuffled:", deck.getCards());
+    setCurrentCard(deck.drawCard());
   }, [deck]);
+
+  useEffect(() => {
+    reset();
+  }, [reset]);
 
   return (
     <div className="playArea">
@@ -21,7 +27,9 @@ function App() {
           <div className="stock">stock</div>
         </div>
       </div>
-      <div className="tableau">Tableau</div>
+      <div className="tableau">
+        <PlayingCard rank={currentCard?.rank} suit={currentCard?.suit} />
+      </div>
     </div>
   );
 }

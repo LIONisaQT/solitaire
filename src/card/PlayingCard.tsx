@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import "./PlayingCard.css";
 
 interface CardProps {
-  front: React.ReactNode;
-  back: React.ReactNode;
+  rank: React.ReactNode;
+  suit: React.ReactNode;
 }
 
-const PlayingCard: React.FC<CardProps> = ({ front, back }) => {
+const PlayingCard: React.FC<CardProps> = ({ rank, suit }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleFlip = () => {
@@ -14,10 +14,13 @@ const PlayingCard: React.FC<CardProps> = ({ front, back }) => {
   };
 
   return (
-    <div className={`card ${isFlipped ? "flipped" : ""}`} onClick={handleFlip}>
-      <div className="card-inner">
-        <div className="card-front">{front}</div>
-        <div className="card-back">{back}</div>
+    <div
+      className={`playingCard ${isFlipped ? "flipped" : ""}`}
+      onClick={handleFlip}
+    >
+      <div className="cardInner">
+        <div className="cardRank">{rank}</div>
+        <div className="cardSuit">{suit}</div>
       </div>
     </div>
   );
