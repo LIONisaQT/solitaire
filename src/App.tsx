@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Card, Deck } from "./card/card";
 import TableauPile from "./tableau/TableauPile";
@@ -6,16 +6,18 @@ import TableauPile from "./tableau/TableauPile";
 const NUM_PILES = 7;
 
 function App() {
-  const [deck, setDeck] = useState(new Deck());
+  const [deck, setDeck] = useState<Deck>();
   const [tableau, setTableau] = useState<Card[][]>();
 
-  const shuffleDeck = useCallback(() => {
-    deck.shuffle();
-    setDeck(deck);
-    console.log("Deck shuffled:", deck.getCards());
-  }, [deck]);
+  useEffect(() => {
+    const newDeck = new Deck();
+    newDeck.shuffle();
+    setDeck(newDeck);
+  }, []);
 
-  const createTableau = useCallback(() => {
+  useEffect(() => {
+    if (!deck) return;
+
     const tableauPiles: Card[][] = [];
     for (let i = 1; i < NUM_PILES + 1; i++) {
       const pile: Card[] = [];
@@ -29,15 +31,6 @@ function App() {
     setTableau(tableauPiles);
   }, [deck]);
 
-  const reset = useCallback(() => {
-    shuffleDeck();
-    createTableau();
-  }, [shuffleDeck, createTableau]);
-
-  useEffect(() => {
-    reset();
-  }, [reset]);
-
   return (
     <div className="play-area">
       <div className="top-area">
@@ -48,8 +41,8 @@ function App() {
         </div>
       </div>
       <div className="tableau">
-        {tableau?.map((pile) => (
-          <TableauPile cards={pile} />
+        {tableau?.map((pile, index) => (
+          <TableauPile key={`tableau-${index}`} cards={pile} />
         ))}
       </div>
     </div>
