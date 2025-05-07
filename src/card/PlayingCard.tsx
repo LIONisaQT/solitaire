@@ -18,10 +18,12 @@ const PlayingCard: React.FC<CardProps> = ({ rank, suit }) => {
       className={`playing-card ${isFlipped ? "flipped" : ""}`}
       onClick={handleFlip}
     >
-      <div className="card-inner">
-        <div className="card-rank">{rank}</div>
-        <div className="card-suit">{suit}</div>
-      </div>
+      {!isFlipped && (
+        <div className="card-inner">
+          <div className="card-rank">{rank}</div>
+          <div className="card-suit">{suit}</div>
+        </div>
+      )}
     </div>
   );
 };

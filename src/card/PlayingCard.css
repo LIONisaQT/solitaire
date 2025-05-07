@@ -11,6 +11,7 @@
 	align-items: center;
 	font-family: sans-serif;
 	position: relative;
+	border: white 2px solid;
 }
 
 .playing-card .corner {
@@ -35,4 +36,9 @@
 .playing-card .suit {
 	font-size: 24px;
 	margin: auto;
+}
+
+.flipped {
+	background: red;
+	border: black 2px solid;
 }
