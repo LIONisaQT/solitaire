@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Card, Deck } from "../card/card";
+import type { Card } from "../card/card";
 import PlayingCard from "../card/PlayingCard";
 
 interface StockProps {
