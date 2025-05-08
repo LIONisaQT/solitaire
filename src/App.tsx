@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Card, Deck } from "./card/card";
 import TableauPile from "./tableau/TableauPile";
+import Stock from "./stock/Stock";
 
 const NUM_PILES = 7;
 
@@ -37,7 +38,9 @@ function App() {
         <div className="foundations">foundation</div>
         <div className="stock-and-waste">
           <div className="waste">waste</div>
-          <div className="stock">stock</div>
+          <div className="stock">
+            <Stock cards={deck?.getCards() || []} />
+          </div>
         </div>
       </div>
       <div className="tableau">

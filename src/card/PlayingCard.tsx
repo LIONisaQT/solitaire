@@ -1,26 +1,30 @@
 import React, { useState } from "react";
 import "./PlayingCard.css";
+import type { Card } from "./card";
 
 interface CardProps {
-  rank: React.ReactNode;
-  suit: React.ReactNode;
-  isFlipped: boolean;
+  rank: string;
+  suit: string;
+  isFaceDown: boolean;
+  onClick: (card: Card, isFlipped: boolean) => void;
 }
 
-const PlayingCard: React.FC<CardProps> = ({ rank, suit, isFlipped }) => {
-  const [flipped, setFlipped] = useState(isFlipped);
-
-  const handleFlip = () => {
-    setFlipped(!flipped);
-    console.log(rank, suit);
-  };
+const PlayingCard: React.FC<CardProps> = ({
+  rank,
+  suit,
+  isFaceDown,
+  onClick,
+}) => {
+  const [faceDown] = useState(isFaceDown);
 
   return (
     <div
-      className={`playing-card ${flipped ? "flipped" : ""}`}
-      onClick={handleFlip}
+      className={`playing-card ${isFaceDown ? "flipped" : ""}`}
+      onClick={() => {
+        onClick({ rank, suit }, isFaceDown);
+      }}
     >
-      {!flipped && (
+      {!faceDown && (
         <div className="card-inner">
           <div className="card-rank">{rank}</div>
           <div className="card-suit">{suit}</div>

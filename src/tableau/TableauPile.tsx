@@ -8,6 +8,12 @@ interface TableauPileProps {
 }
 
 const TableauPile: React.FC<TableauPileProps> = ({ cards }) => {
+  const onClick = (card: Card, isFaceDown: boolean) => {
+    if (isFaceDown) return;
+
+    console.log(card.rank, card.suit, isFaceDown);
+  };
+
   return (
     <div className="tableau-pile">
       {cards.map((card, index) => (
@@ -15,7 +21,8 @@ const TableauPile: React.FC<TableauPileProps> = ({ cards }) => {
           key={`${card.rank}-${card.suit}`}
           rank={card.rank}
           suit={card.suit}
-          isFlipped={index !== cards.length - 1}
+          isFaceDown={index !== cards.length - 1}
+          onClick={onClick}
         />
       ))}
     </div>
