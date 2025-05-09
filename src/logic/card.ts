@@ -1,10 +1,12 @@
 export class Card {
   public suit: string;
   public rank: string;
+  public isFaceDown: boolean | undefined;
 
-  constructor(suit: string, rank: string) {
+  constructor(suit: string, rank: string, startFaceDown: boolean = true) {
     this.suit = suit;
     this.rank = rank;
+    this.isFaceDown = startFaceDown;
   }
 }
 
@@ -34,7 +36,7 @@ export class Deck {
   private initializeDeck() {
     for (const suit of this.suits) {
       for (const rank of this.ranks) {
-        this.cards.push(new Card(suit, rank));
+        this.cards.push(new Card(suit, rank, undefined));
       }
     }
   }
@@ -55,7 +57,7 @@ export class Deck {
   }
 }
 
-export function IsSimilarSuit(card1: Card, card2: Card): boolean {
+export function isSimilarSuit(card1: Card, card2: Card): boolean {
   switch (card1.suit) {
     case "Hearts":
     case "Diamonds":
@@ -68,11 +70,11 @@ export function IsSimilarSuit(card1: Card, card2: Card): boolean {
   }
 }
 
-export function IsSequentialRank(baseCard: Card, nextCard: Card): boolean {
-  return RankToValue(baseCard.rank) === RankToValue(nextCard.rank) + 1;
+export function isSequentialRank(baseCard: Card, nextCard: Card): boolean {
+  return rankToValue(baseCard.rank) === rankToValue(nextCard.rank) + 1;
 }
 
-export function RankToValue(rank: string): number {
+export function rankToValue(rank: string): number {
   switch (rank) {
     case "Ace":
       return 1;

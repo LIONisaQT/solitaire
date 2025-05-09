@@ -1,57 +1,32 @@
-import { useEffect, useState } from "react";
-import type { Card } from "../card/card";
+import type { Card } from "../logic/card";
 import PlayingCard from "../card/PlayingCard";
+import type { Solitaire } from "../logic/solitaire";
 
 interface StockProps {
-  cards: Card[];
-  stockCardClicked: (card: Card, isFlipped: boolean, origin: Card[]) => void;
+  game: Solitaire | undefined;
+  stockClicked: () => void;
+  wasteClicked: (card: Card, origin: Card[]) => void;
 }
 
-const Stock: React.FC<StockProps> = ({ cards, stockCardClicked }) => {
-  const [stockCard, setStockCard] = useState<Card | null>(null);
-  const [stockCards, setStockCards] = useState<Card[]>([]);
-  const [wasteCards, setWasteCards] = useState<Card[]>([]);
-
-  useEffect(() => {
-    setStockCards(cards);
-  }, [cards]);
-
-  const stockClicked = () => {
-    if (stockCards.length === 0 && wasteCards.length === 0) {
-      console.log("No more cards in stock or waste");
-      return;
-    }
-
-    if (stockCards.length === 0 && wasteCards.length > 0) {
-      setStockCards(wasteCards.reverse());
-      setWasteCards([]);
-      setStockCard(null);
-      return;
-    }
-
-    const drawnCard = stockCards.pop();
-    setStockCard(drawnCard!);
-    setWasteCards([...wasteCards, drawnCard!]);
-  };
-
+const Stock: React.FC<StockProps> = ({ game, stockClicked, wasteClicked }) => {
   return (
     <div>
-      <p>{stockCards.length}</p>
-      <PlayingCard
-        rank="stock"
-        suit="stock"
-        isFaceDown={true}
-        origin={stockCards}
-        onClick={stockClicked}
-      />
-      {stockCard && (
-        <PlayingCard
-          rank={stockCard.rank}
-          suit={stockCard.suit}
-          isFaceDown={false}
-          origin={wasteCards}
-          onClick={stockCardClicked}
-        />
+      {game && (
+        <div>
+          <p>{game.stock.length}</p>
+          <PlayingCard
+            card={{ rank: "stock", suit: "stock", isFaceDown: true }}
+            origin={game.stock}
+            onClick={stockClicked}
+          />
+          {game.waste.length > 0 && (
+            <PlayingCard
+              card={game.waste[game.waste.length - 1]}
+              origin={game.waste}
+              onClick={wasteClicked}
+            />
+          )}
+        </div>
       )}
     </div>
   );

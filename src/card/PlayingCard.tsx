@@ -1,19 +1,15 @@
 import React from "react";
 import "./PlayingCard.css";
-import type { Card } from "./card";
+import type { Card } from "../logic/card";
 
 interface CardProps {
-  rank: string;
-  suit: string;
-  isFaceDown: boolean;
+  card: Card;
   origin: Card[];
-  onClick: (card: Card, isFacedown: boolean, origin: Card[]) => void;
+  onClick: (card: Card, origin: Card[]) => void;
 }
 
 const PlayingCard: React.FC<CardProps> = ({
-  rank,
-  suit,
-  isFaceDown,
+  card: { rank, suit, isFaceDown },
   origin,
   onClick,
 }) => {
@@ -21,7 +17,7 @@ const PlayingCard: React.FC<CardProps> = ({
     <div
       className={`playing-card ${isFaceDown ? "flipped" : ""}`}
       onClick={() => {
-        onClick({ rank, suit }, isFaceDown, origin);
+        onClick({ rank, suit, isFaceDown }, origin);
       }}
     >
       {!isFaceDown && (
