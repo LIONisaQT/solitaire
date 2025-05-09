@@ -98,3 +98,18 @@ export function rankToValue(rank: string): number {
       throw new Error(`Invalid rank: ${rank}`);
   }
 }
+
+export function convertSuitToIndex(card: Card): number {
+  switch (card.suit) {
+    case "Spades":
+      return 0;
+    case "Hearts":
+      return 1;
+    case "Clubs":
+      return 2;
+    case "Diamonds":
+      return 3;
+    default:
+      throw new Error(`Invalid suit: ${card.suit}`);
+  }
+}

@@ -1,21 +1,25 @@
-import { Card, Deck, isSequentialRank, isSimilarSuit } from "./card";
+import {
+  Card,
+  convertSuitToIndex,
+  Deck,
+  isSequentialRank,
+  isSimilarSuit,
+} from "./card";
 
 export class Solitaire {
   public deck: Deck;
-  public tableau: Card[][];
+  public tableau: Card[][] = [];
   readonly NUM_PILES = 7;
 
-  public stock: Card[];
-  public waste: Card[];
+  public stock: Card[] = [];
+  public waste: Card[] = [];
+
+  // Spades, Hearts, Diamonds, Clubs
+  public foundations: Card[][] = [[], [], [], []];
 
   constructor() {
     this.deck = new Deck();
     this.deck.shuffle();
-
-    this.tableau = [];
-
-    this.stock = [];
-    this.waste = [];
 
     this.initializeTableau();
     this.initializeStock();
@@ -42,6 +46,33 @@ export class Solitaire {
   public cardClicked(card: Card, origin: Card[]) {
     if (card.isFaceDown) return;
 
+    let moveMade = false;
+    moveMade = this.doBestFoundationMove(card, origin);
+
+    if (!moveMade) {
+      moveMade = this.doBestTableauMove(card, origin);
+    }
+
+    if (!moveMade) {
+      console.error(`No valid move for card ${card}`);
+    }
+  }
+
+  private doBestFoundationMove(card: Card, origin: Card[]): boolean {
+    const foundationIndex = convertSuitToIndex(card);
+    const foundation = this.foundations[foundationIndex];
+    const topFoundationCard = foundation[foundation.length - 1];
+    if (!topFoundationCard) {
+      if (card.rank === "Ace" || isSequentialRank(card, topFoundationCard)) {
+        foundation.push(origin.pop()!);
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private doBestTableauMove(card: Card, origin: Card[]): boolean {
     let bestTableauIndex = -1;
     this.tableau.forEach((pile, index) => {
       const topCard = pile[pile.length - 1];
@@ -56,7 +87,10 @@ export class Solitaire {
 
     if (bestTableauIndex !== -1) {
       this.tableau[bestTableauIndex].push(origin.pop()!);
+      return true;
     }
+
+    return false;
   }
 
   public stockClicked() {
@@ -69,10 +103,6 @@ export class Solitaire {
       this.stock = this.waste.reverse();
       this.waste = [];
       return;
-    }
-
-    if (this.waste.length > 0) {
-      this.waste[this.waste.length - 1].isFaceDown = true;
     }
 
     const drawnCard = this.stock.pop();
