@@ -54,3 +54,45 @@ export class Deck {
     return this.cards;
   }
 }
+
+export function IsSimilarSuit(card1: Card, card2: Card): boolean {
+  switch (card1.suit) {
+    case "Hearts":
+    case "Diamonds":
+      return card2.suit === "Hearts" || card2.suit === "Diamonds";
+    case "Clubs":
+    case "Spades":
+      return card2.suit === "Clubs" || card2.suit === "Spades";
+    default:
+      return false;
+  }
+}
+
+export function IsSequentialRank(baseCard: Card, nextCard: Card): boolean {
+  return RankToValue(baseCard.rank) === RankToValue(nextCard.rank) + 1;
+}
+
+export function RankToValue(rank: string): number {
+  switch (rank) {
+    case "Ace":
+      return 1;
+    case "Jack":
+      return 11;
+    case "Queen":
+      return 12;
+    case "King":
+      return 13;
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case "10":
+      return parseInt(rank);
+    default:
+      throw new Error(`Invalid rank: ${rank}`);
+  }
+}

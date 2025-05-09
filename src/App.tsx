@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { Card, Deck } from "./card/card";
+import { Card, Deck, IsSequentialRank, IsSimilarSuit } from "./card/card";
 import TableauPile from "./tableau/TableauPile";
 import Stock from "./stock/Stock";
 
@@ -32,6 +32,47 @@ function App() {
     setTableau(tableauPiles);
   }, [deck]);
 
+  const cardClicked = (card: Card, isFacedown: boolean, origin: Card[]) => {
+    if (isFacedown) return;
+
+    let bestCard: Card | undefined;
+    let bestTableauPile: Card[] | undefined;
+    tableau?.forEach((pile) => {
+      const topCard = pile[pile.length - 1];
+      if (
+        topCard &&
+        !IsSimilarSuit(card, topCard) &&
+        IsSequentialRank(topCard, card)
+      ) {
+        bestCard = topCard;
+        bestTableauPile = pile;
+      }
+    });
+
+    if (bestCard) {
+      // Remove the card from the origin pile
+      origin.pop();
+      const newOrigin = origin.filter((c) => c !== card);
+      const newOriginTableau = tableau?.map((pile) => {
+        if (pile === origin) {
+          return newOrigin;
+        }
+        return pile;
+      });
+      setTableau(newOriginTableau);
+
+      // Add the card to the best tableau pile
+      const newTableau = tableau?.map((pile) => {
+        if (pile === bestTableauPile) {
+          return [...pile, card];
+        }
+
+        return pile;
+      });
+      setTableau(newTableau);
+    }
+  };
+
   return (
     <div className="play-area">
       <div className="top-area">
@@ -39,13 +80,20 @@ function App() {
         <div className="stock-and-waste">
           <div className="waste">waste</div>
           <div className="stock">
-            <Stock cards={deck?.getCards() || []} />
+            <Stock
+              cards={deck?.getCards() || []}
+              stockCardClicked={cardClicked}
+            />
           </div>
         </div>
       </div>
       <div className="tableau">
         {tableau?.map((pile, index) => (
-          <TableauPile key={`tableau-${index}`} cards={pile} />
+          <TableauPile
+            key={`tableau-${index}`}
+            cards={pile}
+            onClick={cardClicked}
+          />
         ))}
       </div>
     </div>

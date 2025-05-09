@@ -4,9 +4,10 @@ import PlayingCard from "../card/PlayingCard";
 
 interface StockProps {
   cards: Card[];
+  stockCardClicked: (card: Card, isFlipped: boolean, origin: Card[]) => void;
 }
 
-const Stock: React.FC<StockProps> = ({ cards }) => {
+const Stock: React.FC<StockProps> = ({ cards, stockCardClicked }) => {
   const [stockCard, setStockCard] = useState<Card | null>(null);
   const [stockCards, setStockCards] = useState<Card[]>([]);
   const [wasteCards, setWasteCards] = useState<Card[]>([]);
@@ -40,6 +41,7 @@ const Stock: React.FC<StockProps> = ({ cards }) => {
         rank="stock"
         suit="stock"
         isFaceDown={true}
+        origin={stockCards}
         onClick={stockClicked}
       />
       {stockCard && (
@@ -47,7 +49,8 @@ const Stock: React.FC<StockProps> = ({ cards }) => {
           rank={stockCard.rank}
           suit={stockCard.suit}
           isFaceDown={false}
-          onClick={() => {}}
+          origin={wasteCards}
+          onClick={stockCardClicked}
         />
       )}
     </div>
