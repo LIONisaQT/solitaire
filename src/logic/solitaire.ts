@@ -62,8 +62,14 @@ export class Solitaire {
     const foundationIndex = convertSuitToIndex(card);
     const foundation = this.foundations[foundationIndex];
     const topFoundationCard = foundation[foundation.length - 1];
+
     if (!topFoundationCard) {
-      if (card.rank === "Ace" || isSequentialRank(card, topFoundationCard)) {
+      if (card.rank === "Ace") {
+        foundation.push(origin.pop()!);
+        return true;
+      }
+    } else {
+      if (isSequentialRank(card, topFoundationCard)) {
         foundation.push(origin.pop()!);
         return true;
       }
