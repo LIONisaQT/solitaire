@@ -8,4 +8,5 @@
 .stock-pile {
 	display: flex;
 	flex-direction: row-reverse;
+	gap: 8px;
 }
