@@ -15,5 +15,5 @@
 }
 
 .tableau-pile > *:not(:first-child) {
-	margin-top: -130px;
+	margin-top: -120px;
 }

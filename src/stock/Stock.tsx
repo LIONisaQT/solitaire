@@ -15,7 +15,7 @@ const Stock: React.FC<StockProps> = ({ game, stockClicked, wasteClicked }) => {
       {game && (
         <div className="stock-pile">
           <PlayingCard
-            card={{ rank: "stock", suit: "stock", isFaceDown: true }}
+            card={{ rank: "Ace", suit: "Spades", isFaceDown: true }}
             origin={game.stock}
             onClick={stockClicked}
           />

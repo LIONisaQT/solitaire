@@ -1,21 +1,50 @@
 .playing-card {
 	width: 100px;
 	height: 140px;
-	border: 1px solid #000;
-	border-radius: 8px;
-	background-color: white;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	font-family: sans-serif;
-	position: relative;
-	border: black 2px solid;
+	perspective: 1000px;
 }
 
 .card-inner {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transition: transform 0.1s;
+	transform-style: preserve-3d;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-front, .card-back {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	border-radius: 8px;
+	box-sizing: border-box;
+	border: black 2px solid;
+}
+
+.card-front {
+	background-color: white;
+}
+
+.card-front-design {
+	padding: 8px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
 	line-height: 40pt;
+}
+
+.card-back {
+	transform: rotateY(180deg);
+}
+
+.card-back-design {
+	width: inherit;
+	height: inherit;
+	border-radius: inherit;
+	background-color: red;
 }
 
 .card-rank {
@@ -27,8 +56,7 @@
 }
 
 .face-down {
-	background: red;
-	border: black 2px solid;
+	transform: rotateY(180deg);
 }
 
 .face-up:hover {
@@ -38,10 +66,10 @@
 	z-index: 100;
 }
 
-.face-up:hover ~ .playing-card {
-	background: rgba(255, 255, 255, 0.5);
+.playing-card:has(.face-up):hover ~ .playing-card > .card-inner > .card-front {
+	background-color: rgba(255, 255, 255, 0.5);
+	transition: background-color 0.2s;
 	transform: translateY(100px);
-	transition: background 0.2s;
 	transition: transform 0.2s;
 }
 

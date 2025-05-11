@@ -33,19 +33,27 @@ const PlayingCard: React.FC<CardProps> = ({
 
   return (
     <div
-      className={`playing-card ${isFaceDown ? "face-down" : "face-up"} ${
-        animationActive ? "animate" : ""
-      }`}
+      className={`playing-card ${animationActive ? "animate" : ""}`}
       onAnimationEnd={onAnimationEnd}
       style={{ zIndex: zIndex ?? 0 }}
       onClick={handleClick}
     >
-      {!isFaceDown && (
-        <div className="card-inner" style={{ color: getSuitColor(suit) }}>
-          <div className="card-rank">{getRankAsString(rank)}</div>
-          <div className="card-suit">{getSuitEmoji(suit)}</div>
+      <div className={`card-inner ${isFaceDown ? "face-down" : "face-up"}`}>
+        <div className="card-front">
+          {!isFaceDown && (
+            <div
+              className="card-front-design"
+              style={{ color: getSuitColor(suit) }}
+            >
+              <div className="card-rank">{getRankAsString(rank)}</div>
+              <div className="card-suit">{getSuitEmoji(suit)}</div>
+            </div>
+          )}
         </div>
-      )}
+        <div className="card-back">
+          <div className="card-back-design"></div>
+        </div>
+      </div>
     </div>
   );
 };
