@@ -112,7 +112,10 @@ export class Solitaire {
     });
 
     if (bestTableauIndex !== -1) {
-      this.tableau[bestTableauIndex].push(origin.pop()!);
+      const cardIndex = origin.findIndex((c) => isSameCard(c, card));
+      this.tableau[bestTableauIndex] = this.tableau[bestTableauIndex].concat(
+        origin.splice(cardIndex)
+      );
       return true;
     }
 
