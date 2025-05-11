@@ -100,6 +100,30 @@ export class Solitaire {
 
   private doBestTableauMove(card: Card, origin: Card[]): boolean {
     let bestTableauIndex = -1;
+
+    switch (card.rank) {
+      case "King":
+        bestTableauIndex = this.getBestEmptyTableau();
+        break;
+      default:
+        bestTableauIndex = this.getBestTableauWithCards(card);
+        break;
+    }
+
+    if (bestTableauIndex !== -1) {
+      const cardIndex = origin.findIndex((c) => isSameCard(c, card));
+      this.tableau[bestTableauIndex] = this.tableau[bestTableauIndex].concat(
+        origin.splice(cardIndex)
+      );
+      return true;
+    }
+
+    return false;
+  }
+
+  private getBestTableauWithCards(card: Card): number {
+    let bestTableauIndex = -1;
+
     this.tableau.forEach((pile, index) => {
       const topCard = pile[pile.length - 1];
       if (
@@ -111,15 +135,11 @@ export class Solitaire {
       }
     });
 
-    if (bestTableauIndex !== -1) {
-      const cardIndex = origin.findIndex((c) => isSameCard(c, card));
-      this.tableau[bestTableauIndex] = this.tableau[bestTableauIndex].concat(
-        origin.splice(cardIndex)
-      );
-      return true;
-    }
+    return bestTableauIndex;
+  }
 
-    return false;
+  private getBestEmptyTableau(): number {
+    return this.tableau.findIndex((pile) => pile.length === 0);
   }
 
   public stockClicked() {
