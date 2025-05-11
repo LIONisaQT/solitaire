@@ -20,10 +20,17 @@ function App() {
   const cardClicked = (card: Card, origin: Card[]) => {
     if (!game) return;
 
-    game.cardClicked(card, origin);
-    // TODO: Return card destination so we don't have to update both
-    setTableau([...game.tableau]);
-    setFoundations([...game.foundations]);
+    switch (game.cardClicked(card, origin)) {
+      case "tableau":
+      case "flip":
+        setTableau([...game.tableau]);
+        break;
+      case "foundation":
+        setFoundations([...game.foundations]);
+        break;
+      default:
+        break;
+    }
   };
 
   const stockClicked = () => {

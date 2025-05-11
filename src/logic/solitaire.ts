@@ -44,24 +44,22 @@ export class Solitaire {
     this.stock = this.deck.getCards();
   }
 
-  public cardClicked(card: Card, origin: Card[]) {
-    if (card.isFaceDown) {
-      if (isSameCard(card, origin[origin.length - 1])) {
-        this.flipTableauCard(card);
-      }
-      return;
+  public cardClicked(card: Card, origin: Card[]): string {
+    if (card.isFaceDown && isSameCard(card, origin[origin.length - 1])) {
+      this.flipTableauCard(card);
+      return "flip";
     }
 
-    let moveMade = false;
-    moveMade = this.doBestFoundationMove(card, origin);
-
-    if (!moveMade) {
-      moveMade = this.doBestTableauMove(card, origin);
+    if (this.doBestFoundationMove(card, origin)) {
+      return "foundation";
     }
 
-    if (!moveMade) {
-      console.error(`No valid move for card ${card}`);
+    if (this.doBestTableauMove(card, origin)) {
+      return "tableau";
     }
+
+    console.error(`No valid move for card ${card}`);
+    return "nomove";
   }
 
   /*
