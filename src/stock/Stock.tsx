@@ -1,6 +1,7 @@
 import type { Card } from "../logic/card";
 import PlayingCard from "../card/PlayingCard";
 import type { Solitaire } from "../logic/solitaire";
+import "./Stock.css";
 
 interface StockProps {
   game: Solitaire | undefined;
@@ -10,10 +11,9 @@ interface StockProps {
 
 const Stock: React.FC<StockProps> = ({ game, stockClicked, wasteClicked }) => {
   return (
-    <div>
+    <div className="stock-container">
       {game && (
-        <div>
-          <p>{game.stock.length}</p>
+        <div className="stock-pile">
           <PlayingCard
             card={{ rank: "stock", suit: "stock", isFaceDown: true }}
             origin={game.stock}

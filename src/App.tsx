@@ -49,15 +49,12 @@ function App() {
             foundationCardClicked={cardClicked}
           />
         </div>
-        <div className="stock-and-waste">
-          <div className="waste">waste</div>
-          <div className="stock">
-            <Stock
-              game={game}
-              stockClicked={stockClicked}
-              wasteClicked={wasteClicked}
-            />
-          </div>
+        <div className="stock">
+          <Stock
+            game={game}
+            stockClicked={stockClicked}
+            wasteClicked={wasteClicked}
+          />
         </div>
       </div>
       <div className="tableau">

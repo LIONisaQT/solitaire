@@ -8,7 +8,10 @@
 }
 
 body {
-  margin: 0;
+  margin: 4px;
+  background: green;
+  overflow: hidden;
+  height: 100vh;
 }
 
 p {

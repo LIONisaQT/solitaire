@@ -11,7 +11,7 @@
 	align-items: center;
 	font-family: sans-serif;
 	position: relative;
-	border: white 2px solid;
+	border: black 2px solid;
 }
 
 .playing-card .corner {
