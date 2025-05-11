@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./PlayingCard.css";
 import {
   getRankAsString,
@@ -20,13 +20,25 @@ const PlayingCard: React.FC<CardProps> = ({
   onClick,
   zIndex,
 }) => {
+  const [animationActive, setAnimationActive] = useState(false);
+
+  const onAnimationEnd = () => {
+    setAnimationActive(false);
+  };
+
+  const handleClick = () => {
+    setAnimationActive(true);
+    onClick({ rank, suit, isFaceDown }, origin);
+  };
+
   return (
     <div
-      className={`playing-card ${isFaceDown ? "face-down" : "face-up"}`}
+      className={`playing-card ${isFaceDown ? "face-down" : "face-up"} ${
+        animationActive ? "animate" : ""
+      }`}
+      onAnimationEnd={onAnimationEnd}
       style={{ zIndex: zIndex ?? 0 }}
-      onClick={() => {
-        onClick({ rank, suit, isFaceDown }, origin);
-      }}
+      onClick={handleClick}
     >
       {!isFaceDown && (
         <div className="card-inner" style={{ color: getSuitColor(suit) }}>

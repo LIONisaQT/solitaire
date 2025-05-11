@@ -44,3 +44,17 @@
 	transition: background 0.2s;
 	transition: transform 0.2s;
 }
+
+.animate {
+	animation: shaking 0.1s;
+}
+
+@keyframes shaking {
+	0% { transform: rotate(0deg); }
+	25% { transform: rotate(-7deg); }
+	35% { transform: rotate(7deg); }
+	55% { transform: rotate(-7deg); }
+	65% { transform: rotate(7deg); }
+	75% { transform: rotate(-7deg); }
+	100% { transform: rotate(0deg); }
+ }
