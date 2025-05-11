@@ -117,3 +117,22 @@ export function convertSuitToIndex(card: Card): number {
 export function isSameCard(card1: Card, card2: Card): boolean {
   return card1.suit === card2.suit && card1.rank === card2.rank;
 }
+
+export function getSuitEmoji(suit: string): string {
+  switch (suit) {
+    case "Spades":
+      return "♠";
+    case "Hearts":
+      return "♥";
+    case "Clubs":
+      return "♣";
+    case "Diamonds":
+      return "♦";
+    default:
+      throw new Error(`Invalid suit: ${suit}`);
+  }
+}
+
+export function getSuitColor(suit: string): string {
+  return suit === "Hearts" || suit === "Diamonds" ? "red" : "black";
+}

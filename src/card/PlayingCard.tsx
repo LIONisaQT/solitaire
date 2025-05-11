@@ -1,6 +1,6 @@
 import React from "react";
 import "./PlayingCard.css";
-import type { Card } from "../logic/card";
+import { getSuitColor, getSuitEmoji, type Card } from "../logic/card";
 
 interface CardProps {
   card: Card;
@@ -24,9 +24,9 @@ const PlayingCard: React.FC<CardProps> = ({
       }}
     >
       {!isFaceDown && (
-        <div className="card-inner">
-          <div className="card-rank">{rank}</div>
-          <div className="card-suit">{suit}</div>
+        <div className="card-inner" style={{ color: getSuitColor(suit) }}>
+          <div className="card-rank">{rank[0]}</div>
+          <div className="card-suit">{getSuitEmoji(suit)}</div>
         </div>
       )}
     </div>

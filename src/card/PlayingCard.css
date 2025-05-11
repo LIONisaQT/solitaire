@@ -14,28 +14,16 @@
 	border: black 2px solid;
 }
 
-.playing-card .corner {
-	font-size: 14px;
-	font-weight: bold;
-	position: absolute;
+.card-inner {
+	line-height: 40pt;
 }
 
-.playing-card .corner.top-left {
-	top: 8px;
-	left: 8px;
-	text-align: left;
+.card-rank {
+	font-size: 32pt;
 }
 
-.playing-card .corner.bottom-right {
-	bottom: 8px;
-	right: 8px;
-	text-align: right;
-	transform: rotate(180deg);
-}
-
-.playing-card .suit {
-	font-size: 24px;
-	margin: auto;
+.card-suit {
+	font-size: 80pt;
 }
 
 .face-down {
