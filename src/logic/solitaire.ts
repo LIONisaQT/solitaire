@@ -2,6 +2,7 @@ import {
   Card,
   convertSuitToIndex,
   Deck,
+  isSameCard,
   isSequentialRank,
   isSimilarSuit,
 } from "./card";
@@ -44,7 +45,12 @@ export class Solitaire {
   }
 
   public cardClicked(card: Card, origin: Card[]) {
-    if (card.isFaceDown) return;
+    if (card.isFaceDown) {
+      if (isSameCard(card, origin[origin.length - 1])) {
+        this.flipTableauCard(card);
+      }
+      return;
+    }
 
     let moveMade = false;
     moveMade = this.doBestFoundationMove(card, origin);
@@ -56,6 +62,20 @@ export class Solitaire {
     if (!moveMade) {
       console.error(`No valid move for card ${card}`);
     }
+  }
+
+  /*
+    Have to do this because game tracks tableaus, not individial cards.
+    That means only a tableau change will trigger a re-render.
+  */
+  private flipTableauCard(card: Card) {
+    const tableauIndex = this.tableau.findIndex((pile) =>
+      pile.some((c) => isSameCard(c, card))
+    );
+    const tableau = this.tableau[tableauIndex];
+    tableau.pop();
+    const newCard: Card = { ...card, isFaceDown: false };
+    tableau.push(newCard);
   }
 
   private doBestFoundationMove(card: Card, origin: Card[]): boolean {
