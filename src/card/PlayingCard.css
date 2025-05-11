@@ -38,7 +38,21 @@
 	margin: auto;
 }
 
-.flipped {
+.face-down {
 	background: red;
 	border: black 2px solid;
+}
+
+.face-up:hover {
+	transform: scale(1.05);
+	transition: transform 0.2s;
+	cursor: pointer;
+	z-index: 100;
+}
+
+.face-up:hover ~ .playing-card {
+	background: rgba(255, 255, 255, 0.5);
+	transform: translateY(100px);
+	transition: background 0.2s;
+	transition: transform 0.2s;
 }

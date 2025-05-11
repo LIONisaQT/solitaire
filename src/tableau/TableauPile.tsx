@@ -26,6 +26,7 @@ const TableauPile: React.FC<TableauPileProps> = ({ cards, onClick }) => {
           }}
           origin={cards}
           onClick={onClick}
+          zIndex={cards.indexOf(card)}
         />
       ))}
     </div>
