@@ -99,6 +99,21 @@ export function rankToValue(rank: string): number {
   }
 }
 
+export function getRankAsString(rank: string): string {
+  switch (rank) {
+    case "Ace":
+      return "A";
+    case "Jack":
+      return "J";
+    case "Queen":
+      return "Q";
+    case "King":
+      return "K";
+    default:
+      return rank;
+  }
+}
+
 export function convertSuitToIndex(card: Card): number {
   switch (card.suit) {
     case "Spades":
