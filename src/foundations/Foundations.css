@@ -24,8 +24,3 @@
 .foundation-pile:has(div) {
 	border: 2px solid transparent;
 }
-
-/* Don't display last card's peek element */
-.foundation-pile > * > * > * > * > * > * {
-	display: none;
-}

@@ -12,6 +12,7 @@ interface CardProps {
 	origin: Card[];
 	onClick: (card: Card, origin: Card[]) => void;
 	zIndex?: number;
+	showPeek?: boolean;
 }
 
 const PlayingCard: React.FC<CardProps> = ({
@@ -19,6 +20,7 @@ const PlayingCard: React.FC<CardProps> = ({
 	origin,
 	onClick,
 	zIndex,
+	showPeek = false,
 }) => {
 	const [animationActive, setAnimationActive] = useState(false);
 
@@ -45,10 +47,12 @@ const PlayingCard: React.FC<CardProps> = ({
 							className="card-front-design"
 							style={{ color: getSuitColor(suit) }}
 						>
-							<div className="card-peek">
-								<p className="card-rank-small">{getRankAsString(rank)}</p>
-								<p className="card-suit-small">{getSuitEmoji(suit)}</p>
-							</div>
+							{showPeek && (
+								<div className="card-peek">
+									<p className="card-rank-small">{getRankAsString(rank)}</p>
+									<p className="card-suit-small">{getSuitEmoji(suit)}</p>
+								</div>
+							)}
 							<p className="card-rank">{getRankAsString(rank)}</p>
 							<p className="card-suit">{getSuitEmoji(suit)}</p>
 						</div>
