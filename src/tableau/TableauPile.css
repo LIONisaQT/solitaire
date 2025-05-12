@@ -9,6 +9,12 @@
 	align-items: center;
 }
 
+.empty-text {
+	font-size: 52pt;
+	color: #f05d5e;
+	font-family: "Oswald", sans-serif;
+}
+
 .tableau-pile {
 	display: flex;
 	flex-direction: column;
