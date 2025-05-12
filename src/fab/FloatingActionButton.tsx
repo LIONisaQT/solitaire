@@ -4,9 +4,13 @@ import { useState } from "react";
 
 interface FabProps {
 	fullScreenClicked: () => void;
+	restartClicked: () => void;
 }
 
-const FloatingActionButton: React.FC<FabProps> = ({ fullScreenClicked }) => {
+const FloatingActionButton: React.FC<FabProps> = ({
+	fullScreenClicked,
+	restartClicked,
+}) => {
 	const [isOpen, setOpen] = useState(false);
 
 	return (
@@ -21,10 +25,7 @@ const FloatingActionButton: React.FC<FabProps> = ({ fullScreenClicked }) => {
 					</button>
 				</li>
 				<li className="menu-item">
-					<button
-						className="menu-item-button"
-						onClick={() => location.reload()}
-					>
+					<button className="menu-item-button" onClick={restartClicked}>
 						<span>🔄</span>
 					</button>
 				</li>

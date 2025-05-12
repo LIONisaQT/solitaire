@@ -51,6 +51,19 @@ function App() {
 		setWaste([...game.waste]);
 	};
 
+	const restartClicked = () => {
+		if (!game) return;
+
+		game.restartGame();
+		reset();
+	};
+
+	const reset = () => {
+		if (!game) return;
+
+		setTableau(game.tableau); // Only need this to trigger a re-render
+	};
+
 	return (
 		<FullScreen handle={handle}>
 			<div className="play-area">
@@ -80,6 +93,7 @@ function App() {
 				</div>
 				<FloatingActionButton
 					fullScreenClicked={handle.active ? handle.exit : handle.enter}
+					restartClicked={restartClicked}
 				/>
 			</div>
 		</FullScreen>
