@@ -21,8 +21,11 @@ const FloatingActionButton: React.FC<FabProps> = ({ fullScreenClicked }) => {
 					</button>
 				</li>
 				<li className="menu-item">
-					<button className="menu-item-button">
-						<span className="button-text">🔄</span>
+					<button
+						className="menu-item-button"
+						onClick={() => location.reload()}
+					>
+						<span>🔄</span>
 					</button>
 				</li>
 			</ul>
