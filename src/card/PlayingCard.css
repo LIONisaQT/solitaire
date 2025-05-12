@@ -13,7 +13,8 @@
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card-front, .card-back {
+.card-front,
+.card-back {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -26,6 +27,7 @@
 
 .card-front {
 	background-color: white;
+	/* For some reason, adding reset transition here sometimes makes base card blank */
 }
 
 .card-front-design {
@@ -34,6 +36,7 @@
 	justify-content: center;
 	flex-direction: column;
 	line-height: 40pt;
+	z-index: 101;
 }
 
 .card-back {
@@ -68,9 +71,8 @@
 
 .playing-card:has(.face-up):hover ~ .playing-card > .card-inner > .card-front {
 	background-color: rgba(255, 255, 255, 0.5);
-	transition: background-color 0.2s;
 	transform: translateY(100px);
-	transition: transform 0.2s;
+	transition: background-color 0.2s, transform 0.2s;
 }
 
 .animate {
@@ -78,11 +80,25 @@
 }
 
 @keyframes shaking {
-	0% { transform: rotate(0deg); }
-	25% { transform: rotate(-7deg); }
-	35% { transform: rotate(7deg); }
-	55% { transform: rotate(-7deg); }
-	65% { transform: rotate(7deg); }
-	75% { transform: rotate(-7deg); }
-	100% { transform: rotate(0deg); }
- }
+	0% {
+		transform: rotate(0deg);
+	}
+	25% {
+		transform: rotate(-7deg);
+	}
+	35% {
+		transform: rotate(7deg);
+	}
+	55% {
+		transform: rotate(-7deg);
+	}
+	65% {
+		transform: rotate(7deg);
+	}
+	75% {
+		transform: rotate(-7deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
