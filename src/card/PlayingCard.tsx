@@ -3,7 +3,7 @@ import "./PlayingCard.css";
 import {
 	getRankAsString,
 	getSuitColor,
-	getSuitEmoji,
+	getSuitSvgs,
 	type Card,
 } from "../logic/card";
 
@@ -50,11 +50,13 @@ const PlayingCard: React.FC<CardProps> = ({
 							{showPeek && (
 								<div className="card-peek">
 									<p className="card-rank-small">{getRankAsString(rank)}</p>
-									<p className="card-suit-small">{getSuitEmoji(suit)}</p>
+									<img src={getSuitSvgs(suit)} className="card-suit-small" />
 								</div>
 							)}
-							<p className="card-rank">{getRankAsString(rank)}</p>
-							<p className="card-suit">{getSuitEmoji(suit)}</p>
+							<div className="card-face-main">
+								<p className="card-rank">{getRankAsString(rank)}</p>
+								<img src={getSuitSvgs(suit)} className="card-suit" />
+							</div>
 						</div>
 					)}
 				</div>
