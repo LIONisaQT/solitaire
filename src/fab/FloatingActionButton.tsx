@@ -1,6 +1,8 @@
 import type React from "react";
 import "./FloatingActionButton.css";
 import { useState } from "react";
+import generic from "../assets/sounds/generic1.ogg";
+import useSound from "use-sound";
 
 interface FabProps {
 	fullScreenClicked: () => void;
@@ -12,10 +14,17 @@ const FloatingActionButton: React.FC<FabProps> = ({
 	restartClicked,
 }) => {
 	const [isOpen, setOpen] = useState(false);
+	const [playGeneric] = useSound(generic);
 
 	return (
 		<div className="fab">
-			<button className="fab-button" onClick={() => setOpen(!isOpen)}>
+			<button
+				className="fab-button"
+				onClick={() => {
+					setOpen(!isOpen);
+					playGeneric();
+				}}
+			>
 				{isOpen ? "❌" : "➕"}
 			</button>
 			<ul className={`fab-menu-items ${isOpen ? "visible" : "invisible"}`}>
@@ -25,6 +34,7 @@ const FloatingActionButton: React.FC<FabProps> = ({
 						onClick={() => {
 							setOpen(false);
 							fullScreenClicked();
+							playGeneric();
 						}}
 					>
 						<span>⛶</span>
@@ -36,6 +46,7 @@ const FloatingActionButton: React.FC<FabProps> = ({
 						onClick={() => {
 							setOpen(false);
 							restartClicked();
+							playGeneric();
 						}}
 					>
 						<span>↻</span>
