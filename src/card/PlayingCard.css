@@ -2,6 +2,8 @@
 	width: 100px;
 	height: 140px;
 	perspective: 1000px;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 .card-inner {
@@ -72,7 +74,9 @@
 .playing-card:has(.face-up):hover ~ .playing-card > .card-inner > .card-front {
 	background-color: rgba(255, 255, 255, 0.5);
 	transform: translateY(100px);
-	transition: background-color 0.2s, transform 0.2s;
+	transition:
+		background-color 0.2s,
+		transform 0.2s;
 }
 
 .animate {
