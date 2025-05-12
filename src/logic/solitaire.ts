@@ -68,7 +68,7 @@ export class Solitaire {
   */
   private flipTableauCard(card: Card) {
     const tableauIndex = this.tableau.findIndex((pile) =>
-      pile.some((c) => isSameCard(c, card))
+      pile.some((c) => isSameCard(c, card)),
     );
     const tableau = this.tableau[tableauIndex];
     tableau.pop();
@@ -111,7 +111,7 @@ export class Solitaire {
     if (bestTableauIndex !== -1) {
       const cardIndex = origin.findIndex((c) => isSameCard(c, card));
       this.tableau[bestTableauIndex] = this.tableau[bestTableauIndex].concat(
-        origin.splice(cardIndex)
+        origin.splice(cardIndex),
       );
       return true;
     }
