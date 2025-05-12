@@ -6,6 +6,7 @@ import Stock from "./stock/Stock";
 import { Solitaire } from "./logic/solitaire";
 import Foundations from "./foundations/Foundations";
 import FloatingActionButton from "./fab/FloatingActionButton";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 function App() {
 	const [game, setGame] = useState<Solitaire>();
@@ -13,6 +14,8 @@ function App() {
 	const [, setStock] = useState<Card[]>([]);
 	const [, setWaste] = useState<Card[]>([]);
 	const [, setFoundations] = useState<Card[][]>([]);
+
+	const handle = useFullScreenHandle();
 
 	useEffect(() => {
 		setGame(new Solitaire());
@@ -49,33 +52,37 @@ function App() {
 	};
 
 	return (
-		<div className="play-area">
-			<div className="top-area">
-				<div className="foundations">
-					<Foundations
-						foundations={game?.foundations}
-						foundationCardClicked={cardClicked}
-					/>
+		<FullScreen handle={handle}>
+			<div className="play-area">
+				<div className="top-area">
+					<div className="foundations">
+						<Foundations
+							foundations={game?.foundations}
+							foundationCardClicked={cardClicked}
+						/>
+					</div>
+					<div className="stock">
+						<Stock
+							game={game}
+							stockClicked={stockClicked}
+							wasteClicked={wasteClicked}
+						/>
+					</div>
 				</div>
-				<div className="stock">
-					<Stock
-						game={game}
-						stockClicked={stockClicked}
-						wasteClicked={wasteClicked}
-					/>
+				<div className="tableau">
+					{game?.tableau.map((pile, index) => (
+						<TableauPile
+							key={`tableau-${index}`}
+							cards={pile}
+							onClick={cardClicked}
+						/>
+					))}
 				</div>
+				<FloatingActionButton
+					fullScreenClicked={handle.active ? handle.exit : handle.enter}
+				/>
 			</div>
-			<div className="tableau">
-				{game?.tableau.map((pile, index) => (
-					<TableauPile
-						key={`tableau-${index}`}
-						cards={pile}
-						onClick={cardClicked}
-					/>
-				))}
-			</div>
-			<FloatingActionButton />
-		</div>
+		</FullScreen>
 	);
 }
 

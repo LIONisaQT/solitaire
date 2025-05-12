@@ -2,7 +2,11 @@ import type React from "react";
 import "./FloatingActionButton.css";
 import { useState } from "react";
 
-const FloatingActionButton: React.FC = () => {
+interface FabProps {
+	fullScreenClicked: () => void;
+}
+
+const FloatingActionButton: React.FC<FabProps> = ({ fullScreenClicked }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	return (
@@ -12,8 +16,8 @@ const FloatingActionButton: React.FC = () => {
 			</button>
 			<ul className={`fab-menu-items ${isOpen ? "visible" : "invisible"}`}>
 				<li className="menu-item">
-					<button className="menu-item-button">
-						<span className="button-text">⛶</span>
+					<button className="menu-item-button" onClick={fullScreenClicked}>
+						<span>⛶</span>
 					</button>
 				</li>
 				<li className="menu-item">
