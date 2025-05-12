@@ -58,7 +58,7 @@ export class Solitaire {
 			return "tableau";
 		}
 
-		console.error(`No valid move for card ${card}`);
+		console.error(`No valid move for ${card.rank} of ${card.suit}`);
 		return "nomove";
 	}
 
