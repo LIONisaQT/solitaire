@@ -1,7 +1,7 @@
 .empty-pile {
 	width: 100px;
 	height: 140px;
-	border: 2px solid black;
+	border: 2px solid #272932;
 	border-radius: 8px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	display: flex;

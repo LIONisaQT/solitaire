@@ -24,11 +24,11 @@
 	backface-visibility: hidden;
 	border-radius: 8px;
 	box-sizing: border-box;
-	border: black 2px solid;
+	border: #272932 2px solid;
 }
 
 .card-front {
-	background-color: white;
+	background-color: #e7ecef;
 	/* For some reason, adding reset transition here sometimes makes base card blank */
 }
 
@@ -51,7 +51,7 @@
 	width: inherit;
 	height: inherit;
 	border-radius: inherit;
-	background-color: red;
+	background-color: #f05d5e;
 }
 
 .card-rank {
