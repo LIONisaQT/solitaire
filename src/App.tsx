@@ -7,19 +7,27 @@ import { Solitaire } from "./logic/solitaire";
 import Foundations from "./foundations/Foundations";
 import FloatingActionButton from "./fab/FloatingActionButton";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import cardFlip from "./assets/sounds/card1.ogg";
+import cardFan from "./assets/sounds/cardFan2.ogg";
+import cancel from "./assets/sounds/cancel.ogg";
+import useSound from "use-sound";
 
 function App() {
 	const [game, setGame] = useState<Solitaire>();
 	const [, setTableau] = useState<Card[][]>([]);
 	const [, setStock] = useState<Card[]>([]);
-	const [, setWaste] = useState<Card[]>([]);
 	const [, setFoundations] = useState<Card[][]>([]);
 
 	const handle = useFullScreenHandle();
 
+	const [playCardFlip] = useSound(cardFlip, { volume: 0.25 });
+	const [playCardFan] = useSound(cardFan);
+	const [playCancel] = useSound(cancel, { volume: 0.25 });
+
 	useEffect(() => {
 		setGame(new Solitaire());
-	}, []);
+		playCardFan();
+	}, [playCardFan]);
 
 	const cardClicked = (card: Card, origin: Card[]) => {
 		if (!game) return;
@@ -28,11 +36,14 @@ function App() {
 			case "tableau":
 			case "flip":
 				setTableau([...game.tableau]);
+				playCardFlip();
 				break;
 			case "foundation":
 				setFoundations([...game.foundations]);
+				playCardFlip();
 				break;
 			default:
+				playCancel();
 				break;
 		}
 	};
@@ -41,14 +52,8 @@ function App() {
 		if (!game) return;
 
 		game.stockClicked();
+		playCardFlip();
 		setStock([...game.stock]);
-	};
-
-	const wasteClicked = (card: Card, origin: Card[]) => {
-		if (!game) return;
-
-		game.cardClicked(card, origin);
-		setWaste([...game.waste]);
 	};
 
 	const restartClicked = () => {
@@ -62,6 +67,7 @@ function App() {
 		if (!game) return;
 
 		setTableau(game.tableau); // Only need this to trigger a re-render
+		playCardFan();
 	};
 
 	return (
@@ -78,7 +84,7 @@ function App() {
 						<Stock
 							game={game}
 							stockClicked={stockClicked}
-							wasteClicked={wasteClicked}
+							wasteClicked={cardClicked}
 						/>
 					</div>
 				</div>
