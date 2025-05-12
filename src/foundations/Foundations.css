@@ -10,10 +10,21 @@
 .foundation-pile {
 	width: 100px;
 	height: 140px;
+	box-sizing: border-box;
 	border: 2px solid #272932;
 	border-radius: 8px;
 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+/* Don't double up on borders */
+.foundation-pile:has(div) {
+	border: 2px solid transparent;
+}
+
+/* Don't display last card's peek element */
+.foundation-pile > * > * > * > * > * > * {
+	display: none;
 }

@@ -20,14 +20,18 @@ const Stock: React.FC<StockProps> = ({ game, stockClicked, wasteClicked }) => {
 							origin={game.stock}
 							onClick={stockClicked}
 						/>
-						<p className="stock-count">{game.stock.length}</p>
+						<p className="stock-count" onClick={stockClicked}>
+							{game.stock.length}
+						</p>
 					</div>
 					{game.waste.length > 0 && (
-						<PlayingCard
-							card={game.waste[game.waste.length - 1]}
-							origin={game.waste}
-							onClick={wasteClicked}
-						/>
+						<div className="waste-card">
+							<PlayingCard
+								card={game.waste[game.waste.length - 1]}
+								origin={game.waste}
+								onClick={wasteClicked}
+							/>
+						</div>
 					)}
 				</div>
 			)}
