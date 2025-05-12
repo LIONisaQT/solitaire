@@ -26,7 +26,7 @@ const FloatingActionButton: React.FC<FabProps> = ({
 				</li>
 				<li className="menu-item">
 					<button className="menu-item-button" onClick={restartClicked}>
-						<span>🔄</span>
+						<span>↻</span>
 					</button>
 				</li>
 			</ul>
