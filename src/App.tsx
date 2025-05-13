@@ -12,6 +12,7 @@ import cardFan from "./assets/sounds/cardFan2.ogg";
 import cancel from "./assets/sounds/cancel.ogg";
 import win from "./assets/sounds/win.ogg";
 import useSound from "use-sound";
+import Modal from "./assets/modal/Modal";
 
 function App() {
 	const [isDevMode, setDevMode] = useState(true);
@@ -91,9 +92,6 @@ function App() {
 	useEffect(() => {
 		if (!isWon) return;
 		playWin();
-		if (confirm("You win! 🎉 Press OK to play again.")) {
-			restartClicked();
-		}
 	}, [isWon, playWin, restartClicked]);
 
 	const winClicked = () => {
@@ -102,6 +100,14 @@ function App() {
 
 	return (
 		<FullScreen handle={handle}>
+			{isWon && (
+				<Modal
+					titleText="Congratulations!"
+					bodyText="You win! 🎉"
+					onPrimaryClick={restartClicked}
+					primaryButtonText="Restart game"
+				/>
+			)}
 			<div className="play-area">
 				<div className="top-area">
 					<div className="foundations">
