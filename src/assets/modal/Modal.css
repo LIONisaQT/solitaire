@@ -19,7 +19,7 @@
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
-	gap: 32px;
+	gap: 36px;
 	z-index: 1000;
 	box-shadow: 0 0 24px 4px rgba(0, 0, 0, 0.1);
 	color: #272932;
@@ -43,7 +43,9 @@
 
 .modal-buttons {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	gap: 12px;
 }
 
 .primary-button {
@@ -56,4 +58,14 @@
 .primary-button-text {
 	color: white;
 	font-size: 14pt;
+}
+
+.secondary-button {
+	background-color: transparent;
+	border: none;
+}
+
+.secondary-button-text {
+	color: gray;
+	font-size: 12pt;
 }

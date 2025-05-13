@@ -29,11 +29,9 @@ const Modal: React.FC<ModalProps> = ({
 					<button className="primary-button" onClick={onPrimaryClick}>
 						<p className="primary-button-text">{primaryButtonText}</p>
 					</button>
-					{onSecondaryClick && (
-						<button className="secondary-button" onClick={onSecondaryClick}>
-							<p className="secondary-button-text">{secondaryButtonText}</p>
-						</button>
-					)}
+					<button className="secondary-button" onClick={onSecondaryClick}>
+						<p className="secondary-button-text">{secondaryButtonText}</p>
+					</button>
 				</div>
 			</div>
 		</div>
