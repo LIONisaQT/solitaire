@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { Card } from "./logic/card";
 import TableauPile from "./tableau/TableauPile";
@@ -10,6 +10,7 @@ import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import cardFlip from "./assets/sounds/card1.ogg";
 import cardFan from "./assets/sounds/cardFan2.ogg";
 import cancel from "./assets/sounds/cancel.ogg";
+import win from "./assets/sounds/win.ogg";
 import useSound from "use-sound";
 
 function App() {
@@ -17,12 +18,14 @@ function App() {
 	const [, setTableau] = useState<Card[][]>([]);
 	const [, setStock] = useState<Card[]>([]);
 	const [, setFoundations] = useState<Card[][]>([]);
+	const [isWon, setWin] = useState(false);
 
 	const handle = useFullScreenHandle();
 
 	const [playCardFlip] = useSound(cardFlip, { volume: 0.25 });
 	const [playCardFan] = useSound(cardFan);
 	const [playCancel] = useSound(cancel, { volume: 0.25 });
+	const [playWin] = useSound(win);
 
 	useEffect(() => {
 		setGame(new Solitaire());
@@ -46,6 +49,12 @@ function App() {
 				playCancel();
 				break;
 		}
+
+		let finishedFoundations = 0;
+		game.foundations.forEach((foundation) => {
+			finishedFoundations += foundation.length === 13 ? 1 : 0;
+		});
+		setWin(finishedFoundations === 4);
 	};
 
 	const stockClicked = () => {
@@ -56,19 +65,28 @@ function App() {
 		setStock([...game.stock]);
 	};
 
-	const restartClicked = () => {
+	const reset = useCallback(() => {
+		if (!game) return;
+
+		setTableau(game.tableau); // Only need this to trigger a re-render
+		setWin(false);
+		playCardFan();
+	}, [game, playCardFan]);
+
+	const restartClicked = useCallback(() => {
 		if (!game) return;
 
 		game.restartGame();
 		reset();
-	};
+	}, [game, reset]);
 
-	const reset = () => {
-		if (!game) return;
-
-		setTableau(game.tableau); // Only need this to trigger a re-render
-		playCardFan();
-	};
+	useEffect(() => {
+		if (!isWon) return;
+		playWin();
+		if (confirm("You win! 🎉 Press OK to play again.")) {
+			restartClicked();
+		}
+	}, [isWon, playWin, restartClicked]);
 
 	return (
 		<FullScreen handle={handle}>
