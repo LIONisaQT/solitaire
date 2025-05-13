@@ -5,13 +5,19 @@ import generic from "../assets/sounds/generic1.ogg";
 import useSound from "use-sound";
 
 interface FabProps {
+	onClickCallback: () => void;
 	fullScreenClicked: () => void;
 	restartClicked: () => void;
+	winClicked: () => void;
+	isDevMode: boolean;
 }
 
 const FloatingActionButton: React.FC<FabProps> = ({
+	onClickCallback,
 	fullScreenClicked,
 	restartClicked,
+	winClicked,
+	isDevMode,
 }) => {
 	const [isOpen, setOpen] = useState(false);
 	const [playGeneric] = useSound(generic);
@@ -23,6 +29,7 @@ const FloatingActionButton: React.FC<FabProps> = ({
 				onClick={() => {
 					setOpen(!isOpen);
 					playGeneric();
+					onClickCallback();
 				}}
 			>
 				{isOpen ? "❌" : "➕"}
@@ -52,6 +59,19 @@ const FloatingActionButton: React.FC<FabProps> = ({
 						<span>↻</span>
 					</button>
 				</li>
+				{isDevMode && (
+					<li className="menu-item">
+						<button
+							className="menu-item-button"
+							onClick={() => {
+								setOpen(false);
+								winClicked();
+							}}
+						>
+							<span>💻</span>
+						</button>
+					</li>
+				)}
 			</ul>
 		</div>
 	);

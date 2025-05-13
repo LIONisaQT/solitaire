@@ -14,6 +14,14 @@ import win from "./assets/sounds/win.ogg";
 import useSound from "use-sound";
 
 function App() {
+	const [isDevMode, setDevMode] = useState(true);
+	const [fabClickCount, setFabClickCount] = useState(0);
+
+	useEffect(() => {
+		if (fabClickCount < 10) return;
+		setDevMode(true);
+	}, [fabClickCount]);
+
 	const [game, setGame] = useState<Solitaire>();
 	const [, setTableau] = useState<Card[][]>([]);
 	const [, setStock] = useState<Card[]>([]);
@@ -88,6 +96,10 @@ function App() {
 		}
 	}, [isWon, playWin, restartClicked]);
 
+	const winClicked = () => {
+		setWin(true);
+	};
+
 	return (
 		<FullScreen handle={handle}>
 			<div className="play-area">
@@ -116,8 +128,11 @@ function App() {
 					))}
 				</div>
 				<FloatingActionButton
+					onClickCallback={() => setFabClickCount(fabClickCount + 1)}
 					fullScreenClicked={handle.active ? handle.exit : handle.enter}
 					restartClicked={restartClicked}
+					winClicked={winClicked}
+					isDevMode={isDevMode}
 				/>
 			</div>
 		</FullScreen>
