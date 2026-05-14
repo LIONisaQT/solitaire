@@ -5,76 +5,81 @@ import generic from "../assets/sounds/generic1.ogg";
 import useSound from "use-sound";
 
 interface FabProps {
-	onClickCallback: () => void;
-	fullScreenClicked: () => void;
-	restartClicked: () => void;
-	winClicked: () => void;
-	isDevMode: boolean;
+  onClickCallback: () => void;
+  fullScreenClicked: () => void;
+  restartClicked: () => void;
+  winClicked: () => void;
+  undoClicked?: () => void;
+  isDevMode: boolean;
 }
 
 const FloatingActionButton: React.FC<FabProps> = ({
-	onClickCallback,
-	fullScreenClicked,
-	restartClicked,
-	winClicked,
-	isDevMode,
+  onClickCallback,
+  fullScreenClicked,
+  restartClicked,
+  winClicked,
+  undoClicked,
+  isDevMode,
 }) => {
-	const [isOpen, setOpen] = useState(false);
-	const [playGeneric] = useSound(generic);
+  const [isOpen, setOpen] = useState(false);
+  const [playGeneric] = useSound(generic);
 
-	return (
-		<div className="fab">
-			<button
-				className="fab-button"
-				onClick={() => {
-					setOpen(!isOpen);
-					playGeneric();
-					onClickCallback();
-				}}
-			>
-				{isOpen ? "❌" : "➕"}
-			</button>
-			<ul className={`fab-menu-items ${isOpen ? "visible" : "invisible"}`}>
-				<li className="menu-item">
-					<button
-						className="menu-item-button"
-						onClick={() => {
-							setOpen(false);
-							fullScreenClicked();
-							playGeneric();
-						}}
-					>
-						<span>⛶</span>
-					</button>
-				</li>
-				<li className="menu-item">
-					<button
-						className="menu-item-button"
-						onClick={() => {
-							setOpen(false);
-							restartClicked();
-							playGeneric();
-						}}
-					>
-						<span>↻</span>
-					</button>
-				</li>
-				{isDevMode && (
-					<li className="menu-item">
-						<button
-							className="menu-item-button"
-							onClick={() => {
-								setOpen(false);
-								winClicked();
-							}}
-						>
-							<span>💻</span>
-						</button>
-					</li>
-				)}
-			</ul>
-		</div>
-	);
+  return (
+    <div className="fab">
+      <button
+        className="fab-button"
+        onClick={() => {
+          setOpen(!isOpen);
+          playGeneric();
+          onClickCallback();
+        }}
+      >
+        {isOpen ? "❌" : "➕"}
+      </button>
+      <button className="fab-button" onClick={undoClicked}>
+        ↩️
+      </button>
+      <ul className={`fab-menu-items ${isOpen ? "visible" : "invisible"}`}>
+        <li className="menu-item">
+          <button
+            className="menu-item-button"
+            onClick={() => {
+              setOpen(false);
+              fullScreenClicked();
+              playGeneric();
+            }}
+          >
+            <span>⛶</span>
+          </button>
+        </li>
+        <li className="menu-item">
+          <button
+            className="menu-item-button"
+            onClick={() => {
+              setOpen(false);
+              restartClicked();
+              playGeneric();
+            }}
+          >
+            <span>↻</span>
+          </button>
+        </li>
+        {isDevMode && (
+          <li className="menu-item">
+            <button
+              className="menu-item-button"
+              onClick={() => {
+                setOpen(false);
+                winClicked();
+              }}
+            >
+              <span>💻</span>
+            </button>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
 };
 
 export default FloatingActionButton;
